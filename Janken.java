@@ -35,33 +35,42 @@ class Player{
 	public int Result(){
 		return m_nResult;
 	}
+
+	public int retPose(){
+		return m_nHand;
+	}
 }
 
 class Manager{
-	public void Hantei(int p1Hand, int p2Hand, Player player1, Player player2){
+
+	public String Hantei(Player player1, Player player2){
+
+		int p1Hand, p2Hand;
+		String strResult = null;
+
+		p1Hand = player1.retPose();
+		p2Hand = player2.retPose();
+
 		if(p1Hand == p2Hand){					//あいこの場合
-				System.out.println(player1.hand() + "VS" + player2.hand());
 				System.out.println("あいこです。");
 			}else if((p1Hand == 0 && p2Hand == 2) || (p1Hand == 2 && p2Hand == 1)){
-					System.out.println(player1.hand() + "VS" + player2.hand());
 					if(p1Hand == 0){
-						System.out.println("プレイヤー１が勝ちました！");
 						player1.Win();
+						return strResult = "プレイヤー１が勝ちました！";
 					}else{
-						System.out.println("プレイヤー2が勝ちました！");
 						player2.Win();
+						return strResult = "プレイヤー２が勝ちました！";
 					}
 			}else{
-				System.out.println(player1.hand() + "VS" + player2.hand());
-
 				if(p1Hand > p2Hand){
-					System.out.println("プレイヤー１が勝ちました！");
 					player1.Win();
+					return strResult = "プレイヤー１が勝ちました！";
 				}else{
-					System.out.println("プレイヤー2が勝ちました！");
 					player2.Win();
+					return strResult = "プレイヤー１が勝ちました！";
 				}
 			}
+		return strResult;
 	}
 
 	public void Winer(Player player1, Player player2){
@@ -85,15 +94,14 @@ class Janken{
 		Player player2 = new Player();
 		Manager manager = new Manager();
 
-		int p1Hand, p2Hand;
-
 		for(int i=0; i<3; i++){						//三回勝負
-			System.out.println("【" + i + "回戦目】");
+			System.out.println("【" + (i+1) + "回戦目】");
 
-			p1Hand = player1.pose();
-			p2Hand = player2.pose();
+			player1.pose();
+			player2.pose();
 
-			manager.Hantei(p1Hand, p2Hand, player1, player2);
+			System.out.println(player1.hand() + "VS" + player2.hand());
+			System.out.println(manager.Hantei(player1, player2));
 
 		}
 
