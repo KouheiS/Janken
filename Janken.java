@@ -54,7 +54,17 @@ class Janken{
 			p1Hand = player1.pose();
 			p2Hand = player2.pose();
 
-			if(p1Hand == p2Hand){					//あいこの場合
+			Hantei(p1Hand, p2Hand, player1, player2);
+
+		}
+
+		System.out.println("【ジャンケン終了】");
+
+		Winer(player1, player2);
+	}
+
+	static void Hantei(int p1Hand, int p2Hand, Player player1, Player player2){
+		if(p1Hand == p2Hand){					//あいこの場合
 				System.out.println(player1.hand() + "VS" + player2.hand());
 				System.out.println("あいこです。");
 			}else if((p1Hand == 0 && p2Hand == 2) || (p1Hand == 2 && p2Hand == 1)){
@@ -77,11 +87,9 @@ class Janken{
 					player2.Win();
 				}
 			}
+	}
 
-		}
-
-		System.out.println("【ジャンケン終了】");
-
+	static void Winer(Player player1, Player player2){
 		if(player1.Result() == player2.Result()){
 			System.out.println("引き分けです。");
 		}else if(player1.Result() > player2.Result()){
