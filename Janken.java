@@ -3,12 +3,10 @@ import java.util.Random;
 class Player{
 	private int m_nResult;
 	private int m_nHand;
-	private String m_strHand;
 	Random rnd = new Random();
 
 	Player(){
 		m_nResult = 0;
-		m_strHand = null;
 		m_nHand = -1;
 	}
 
@@ -18,14 +16,13 @@ class Player{
 
 	public String hand(){
 		if(m_nHand == 0){
-			m_strHand = "チョキ";
+			return "チョキ";
 		}else if(m_nHand == 1){
-			m_strHand = "グー";
+			return"グー";
 		}else if(m_nHand == 2){
-			m_strHand = "パー";
+			return  "パー";
 		}
-
-		return m_strHand;
+		return null;
 	}
 
 	public void Win(){
@@ -46,40 +43,38 @@ class Manager{
 	public String Hantei(Player player1, Player player2){
 
 		int p1Hand, p2Hand;
-		String strResult = null;
 
 		p1Hand = player1.retPose();
 		p2Hand = player2.retPose();
 
 		if(p1Hand == p2Hand){					//あいこの場合
-				System.out.println("あいこです。");
+				return "あいこです。";
 			}else if((p1Hand == 0 && p2Hand == 2) || (p1Hand == 2 && p2Hand == 1)){
 					if(p1Hand == 0){
 						player1.Win();
-						return strResult = "プレイヤー１が勝ちました！";
+						return "プレイヤー１が勝ちました！";
 					}else{
 						player2.Win();
-						return strResult = "プレイヤー２が勝ちました！";
+						return "プレイヤー２が勝ちました！";
 					}
 			}else{
 				if(p1Hand > p2Hand){
 					player1.Win();
-					return strResult = "プレイヤー１が勝ちました！";
+					return "プレイヤー１が勝ちました！";
 				}else{
 					player2.Win();
-					return strResult = "プレイヤー１が勝ちました！";
+					return "プレイヤー１が勝ちました！";
 				}
 			}
-		return strResult;
 	}
 
-	public void Winer(Player player1, Player player2){
+	public String Winer(Player player1, Player player2){
 		if(player1.Result() == player2.Result()){
-			System.out.println("引き分けです。");
+			return "引き分けです。";
 		}else if(player1.Result() > player2.Result()){
-			System.out.println("" +player1.Result() + "対" +"" +player2.Result() +"でプレイヤー１の勝利です。");
+			return  player1.Result() + "対" + player2.Result() +"でプレイヤー１の勝利です。";
 		}else{
-			System.out.println(""+player1.Result() + "対" +"" +player2.Result() +"でプレイヤー２の勝利です。");
+			return  player1.Result() + "対" + player2.Result() +"でプレイヤー２の勝利です。";
 		}
 	}
 }
@@ -107,6 +102,6 @@ class Janken{
 
 		System.out.println("【ジャンケン終了】");
 
-		manager.Winer(player1, player2);
+		System.out.println(manager.Winer(player1, player2));
 	}
 }
