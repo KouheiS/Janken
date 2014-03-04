@@ -16,9 +16,9 @@ class Player{
 
 	public String hand(){
 		if(m_nHand == 0){
-			return "チョキ";
+			return "グー";
 		}else if(m_nHand == 1){
-			return"グー";
+			return"チョキ";
 		}else if(m_nHand == 2){
 			return  "パー";
 		}
@@ -39,33 +39,33 @@ class Player{
 }
 
 class Manager{
-
 	public String Hantei(Player player1, Player player2){
-
+		String strRet;
 		int p1Hand, p2Hand;
 
 		p1Hand = player1.retPose();
 		p2Hand = player2.retPose();
 
-		if(p1Hand == p2Hand){					//あいこの場合
-				return "あいこです。";
-			}else if((p1Hand == 0 && p2Hand == 2) || (p1Hand == 2 && p2Hand == 1)){
-					if(p1Hand == 0){
-						player1.Win();
-						return "プレイヤー１が勝ちました！";
-					}else{
-						player2.Win();
-						return "プレイヤー２が勝ちました！";
-					}
-			}else{
-				if(p1Hand > p2Hand){
-					player1.Win();
-					return "プレイヤー１が勝ちました！";
-				}else{
-					player2.Win();
-					return "プレイヤー１が勝ちました！";
-				}
-			}
+		int nWiner = 0;
+		if(p1Hand < p2Hand){
+			nWiner = Math.abs(p1Hand - p2Hand);
+		}else if (p1Hand > p2Hand){
+			nWiner = 3 - (p1Hand - p2Hand);
+		}
+		switch(nWiner){
+			case 1:
+				player1.Win();
+				strRet = "プレイヤー１が勝ちました！";
+				break;
+			case 2:
+				player2.Win();
+				strRet = "プレイヤー２が勝ちました！";
+				break;
+			default:
+				strRet = "あいこです。";
+				break;
+		}
+		return strRet;
 	}
 
 	public String Winer(Player player1, Player player2){
@@ -90,18 +90,52 @@ class Janken{
 		Manager manager = new Manager();
 
 		for(int i=0; i<3; i++){						//三回勝負
-			System.out.println("【" + (i+1) + "回戦目】");
+			MyPrint("【" + (i+1) + "回戦目】");
 
 			player1.pose();
 			player2.pose();
 
-			System.out.println(player1.hand() + "VS" + player2.hand());
-			System.out.println(manager.Hantei(player1, player2));
+			MyPrint(player1.hand() + "VS" + player2.hand());
+			MyPrint(manager.Hantei(player1, player2));
 
 		}
 
-		System.out.println("【ジャンケン終了】");
+		MyPrint("【ジャンケン終了】");
 
-		System.out.println(manager.Winer(player1, player2));
+		MyPrint(manager.Winer(player1, player2));
+	}
+
+	static void MyPrint(String str){
+		System.out.println(str);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
