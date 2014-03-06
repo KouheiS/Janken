@@ -1,2 +1,2 @@
-Janken
+JankenプログラムでGithubの使い方練習
 ======
